@@ -58,6 +58,7 @@ def get_prices():
 p_pLuna, p_yLuna = get_prices()
 
 pLuna, yLuna = get_balances()
+
 n_pLuna = pLuna
 # print(p_pLuna, p_yLuna)
 
@@ -66,8 +67,13 @@ while True:
     if yLuna == approx(pLuna, rel=1e-4):
         break
     else:
-        yLuna += (INCREMENT * p_pLuna) / p_yLuna
-        pLuna -= INCREMENT
+        # TODO: Not the best, needs improvement
+        if yLuna < pLuna:
+            yLuna += (INCREMENT * p_pLuna) / p_yLuna
+            pLuna -= INCREMENT
+        else:
+            pLuna += (INCREMENT * p_yLuna) / p_pLuna
+            yLuna -= INCREMENT
 
 
 print("Luna:", pLuna)
